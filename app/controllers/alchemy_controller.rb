@@ -13,16 +13,20 @@ class AlchemyController < ApplicationController
   end
 
   def create
-    @message = Message.new(slack_params)
-    @message.save
-    @channel_messages = Message.where channel_id: @message[:channel_id]
-    puts @channel_messages
-    if @channel_messages.count > 10
-      @ID = @channel_messages.minimum(:id)
-      puts @ID
-      @messages = @channel_messages.find(@ID)
-      @messages.destroy
-      stringy @message['channel_id']
+    begin
+      @message = Message.new(slack_params)
+      @message.save
+      @channel_messages = Message.where channel_id: @message[:channel_id]
+      puts @channel_messages
+      if @channel_messages.count > 10
+        @ID = @channel_messages.minimum(:id)
+        puts @ID
+        @messages = @channel_messages.find(@ID)
+        @messages.destroy
+        stringy @message['channel_id']
+      end
+    rescue
+      render json: {"text": @message.errors}
     end
   end
 

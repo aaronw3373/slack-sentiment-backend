@@ -13,7 +13,6 @@ class AlchemyController < ApplicationController
   end
 
   def create
-    begin
       @message = Message.new(slack_params)
       @message.save
       @channel_messages = Message.where channel_id: @message[:channel_id]
@@ -25,9 +24,6 @@ class AlchemyController < ApplicationController
         @messages.destroy
         stringy @message['channel_id']
       end
-    rescue
-      render json: {"text": @message.errors}
-    end
   end
 
   def stringy channel_id

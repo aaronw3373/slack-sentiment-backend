@@ -24,6 +24,7 @@ class AlchemyController < ApplicationController
       @messages.destroy
       stringy @message['channel_id']
     end
+    render json: {"text": "success!!!!!!!!!!!!!!!!!!!!!"}
   end
 
   def stringy channel_id

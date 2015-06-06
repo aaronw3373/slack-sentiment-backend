@@ -5,6 +5,8 @@ post '/slackmessage' => 'alchemy#create'
 
 get '/response/:id' => 'alchemy#show'
 
+get '/messages' => 'alchemy#index'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

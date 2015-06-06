@@ -7,6 +7,11 @@ class AlchemyController < ApplicationController
     config.output_mode = :json # not yet supported
   end
 
+  def index
+    @messages = Message.all
+    render json: @messages
+  end
+
   def create
     @message = Message.new(slack_params)
     @message.save
